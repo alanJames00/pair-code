@@ -2,6 +2,7 @@
 import { userState } from "@/app/states/userState";
 import { useRecoilState } from "recoil";
 import CodeEditor from "./Editor";
+import SideBar from "./SideBar";
 
 
 export default function Page() {
@@ -10,11 +11,13 @@ export default function Page() {
 
     console.log(currentUser);
 
+
     return (
         <div>
             
-            <div>
-            <CodeEditor />
+            <div className=" md:flex">
+            <CodeEditor value=""/>
+            <SideBar members={[currentUser]}/>
             </div>
         </div>
     );
