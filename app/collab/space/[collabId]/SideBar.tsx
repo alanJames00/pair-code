@@ -10,10 +10,10 @@ export default function SideBar({ members }: { members: any[]}) {
                 <div>
                     {members.map((elem) => 
                         (   
-                            <div className=" flex">
+                            <div className=" flex mb-2">
                             <Avatar>
                               <AvatarImage src="https://github.com/shadc0n.png" />
-                              <AvatarFallback>CN</AvatarFallback>
+                              <AvatarFallback>{elem[0].toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <h1 className=" ml-2 mt-1">{elem}</h1>
                             </div>
