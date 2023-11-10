@@ -17,11 +17,13 @@ import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { useRecoilState } from "recoil"
 import { userState } from "@/app/states/userState"
+import Link from "next/link"
 
 export default function JoinCollab({ collabId } : { collabId: string }) {
 
     const [collabLink, setCollabLink] = React.useState(collabId);
     const [userName, setUserName] = React.useState('');
+    const [hasJoined, setJoined] = React.useState(false);
 
     const [currentUser, setCurrentUser] = useRecoilState(userState);
     console.log(currentUser);
@@ -33,6 +35,7 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
         
         try {
 
+            console.log('trying');
             const resp = await fetch('http://localhost:4000/collab/joinRoom', {
                 method: 'POST',
                 headers: {
@@ -45,6 +48,8 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
             });
 
             const respJson = await resp.json();
+            
+            
             
             if(resp.ok == false ) {
                 // show error toast
@@ -59,7 +64,25 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
             }
 
             else if(resp.ok == true) {
+                console.log(respJson);
+                
                 // add the user state to recoil state
+                setCurrentUser(userName);
+
+                // disable all inputs once joined
+
+
+                // set joined state
+                setJoined(true);
+                
+                
+                // show success toast of joining
+                toast({
+                    title: "You Have Joined the Collab-Space.",
+                    description: 'You can now go the Collab-Space by Clicking the Go to Collab-Space Button',
+                    action: <ToastAction altText="Try again">Dismiss</ToastAction>,
+                });
+                
             }
         }
         catch(e) {
@@ -98,6 +121,7 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
                       <Label htmlFor="name">Your Name ( Visible to Other Members )</Label>
                         <Input id="name" placeholder="Your Name" 
                           value={userName}
+                          disabled={hasJoined}
                           onChange={(e) => setUserName(e.target.value)}
                         />
                   </div>
@@ -106,9 +130,19 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
                  </CardContent>
                     <CardFooter className="flex justify-between">
                     <Button variant="outline">Cancel </Button>
-                    <Button
-                        onClick={handleJoin}
-                        >Join Now &gt;</Button>
+                    {
+                        !hasJoined &&
+                            <Button
+                            onClick={handleJoin}
+                            >Join Now &gt;</Button>
+                    }
+                    
+                    {
+                        hasJoined && 
+                            <Link href={`/collab/space/${collabLink}`}>
+                                <Button>Go to Collab-Space &gt;</Button>
+                            </Link>
+                    }
                     </CardFooter>
             </Card>
         </div>
