@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
-export default function SideBar({ members }: { members:[string | null]}) {
+export default function SideBar({ members }: { members: any[]}) {
 
     return (
         <div className=" m-6">

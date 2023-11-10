@@ -8,6 +8,7 @@ import io from 'socket.io-client';
 
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
+import { CodeContent } from "@/app/states/codeContent";
 
 
 export default function Page({ params } : { params: { collabId: string } }) {
@@ -15,8 +16,12 @@ export default function Page({ params } : { params: { collabId: string } }) {
     const [currentUser, setCurrentUser] = useRecoilState(userState);
     const [socket, setSocket] = useState<any>(null);
     const [activeUsers, setActiveUsers] = useState<any>([]);
+    const [codeText, setCodeText] = useRecoilState(CodeContent);
     
-    // getActiveUsers();
+    // console.log(codeText);
+    
+
+    // getActiveUsers();    
     console.log(activeUsers);
     
     async function getActiveUsers() {
@@ -31,6 +36,12 @@ export default function Page({ params } : { params: { collabId: string } }) {
 
             console.log(e);
         }
+    }
+
+    function emitCodeChange(e: any) {
+
+        console.log(e);
+        socket.emit('send-code-change', { code: e, user: currentUser });
     }
 
     const { toast } = useToast();
@@ -49,7 +60,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
         // verify user
 
         // join room
-        newSocket.emit('join-room', { collabId: params.collabId, user: currentUser});4
+        newSocket.emit('join-room', { collabId: params.collabId, user: currentUser});
 
         // when other users join
         newSocket.on('user-joined', message => {
@@ -65,6 +76,15 @@ export default function Page({ params } : { params: { collabId: string } }) {
 
         })
 
+        // handle code change
+       
+        newSocket.on('receive-code-change', message => {
+
+            console.log(`${message.user} wrote ${message.code}`)
+            // check if its written by current user himself
+            setCodeText(message.code);
+            
+        })
         // cleanup when unmounted
 
 
@@ -77,7 +97,13 @@ export default function Page({ params } : { params: { collabId: string } }) {
                 <h1 className=" text-3xl font-bold">PairCode</h1>
             </div>
             <div className=" md:flex">
-            <CodeEditor value=""/>
+            <CodeEditor value={codeText} onChange={(e: any) => {
+                // change the localcode state
+                setCodeText(e);
+
+                // emit the code change
+                emitCodeChange(e);
+            }}/>
             <SideBar members={activeUsers}/>
             </div>
         </div>
