@@ -15,6 +15,23 @@ export default function Page({ params } : { params: { collabId: string } }) {
     const [currentUser, setCurrentUser] = useRecoilState(userState);
     const [socket, setSocket] = useState<any>(null);
     const [activeUsers, setActiveUsers] = useState<any>([]);
+    
+    // getActiveUsers();
+    console.log(activeUsers);
+    
+    async function getActiveUsers() {
+        
+        try {
+
+            const resp = await fetch(`http://localhost:4000/collab/getActiveUsers?id=${params.collabId}`);
+            const respJson = await resp.json();
+            setActiveUsers(respJson);
+        }
+        catch(e) {
+
+            console.log(e);
+        }
+    }
 
     const { toast } = useToast();
 
@@ -43,7 +60,9 @@ export default function Page({ params } : { params: { collabId: string } }) {
                 action: <ToastAction altText="Try again">Dismiss</ToastAction>,
             });
 
-            setActiveUsers((prev: any[]) => [...prev, message]);
+           // call the api for active Users list
+            getActiveUsers();
+
         })
 
         // cleanup when unmounted
@@ -59,7 +78,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
             </div>
             <div className=" md:flex">
             <CodeEditor value=""/>
-            <SideBar members={[`${currentUser} (You)`,...activeUsers]}/>
+            <SideBar members={activeUsers}/>
             </div>
         </div>
     );
