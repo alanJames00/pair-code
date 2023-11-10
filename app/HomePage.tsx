@@ -19,8 +19,10 @@ function HomePage() {
         </div>
 
         <div className=' flex justify-center mt-4'>
-            <Link href={'/collab/createCollab'}></Link>
-            <Button>Create An Instant Collab-Space Now &gt; &gt;</Button>
+            <Link href={'/collab/createCollab'}>
+                <Button>Create An Instant Collab-Space Now &gt; &gt;</Button>
+            </Link>
+            
         </div>
     </div>
   );
