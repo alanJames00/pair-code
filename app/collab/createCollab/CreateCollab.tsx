@@ -13,6 +13,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast"
+
 
 
 function CreateCollab() {
@@ -59,13 +61,23 @@ function CreateCollab() {
                     setCreated(true);
                 }
                 else {
-
-                    // show error toast
+                  toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "There was a problem with your request.",
+                    action: <ToastAction altText="Try again">Try again</ToastAction>,
+                  })
                 }
             }
             catch(e) {
                 console.log(e);
                 // show the error toast
+                toast({
+                  variant: "destructive",
+                  title: "Uh oh! Something went wrong.",
+                  description: 'Check your internet connectivity',
+                  action: <ToastAction altText="Try again">Dismiss</ToastAction>,
+              });
                 
             }
             setSubmitting(false);
