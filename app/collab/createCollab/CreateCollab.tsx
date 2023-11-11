@@ -1,7 +1,6 @@
 "use client"
-import * as React from "react"
- 
-import { Button } from "@/components/ui/button"
+import * as React from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,11 +8,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast"
+import { ToastAction } from "@/components/ui/toast";
 
 
 
@@ -48,7 +47,7 @@ function CreateCollab() {
                         'Content-Type':'application/json'
                     },
                     body: JSON.stringify({
-                        name: userName
+                        name: userName,
                     })
                 });
                 
@@ -86,35 +85,36 @@ function CreateCollab() {
 
   return (
     
+    <div>
     <Card className="w-[400px]">
 
         {   !isCreated &&
-            <div>
-                <CardHeader>
-        <CardTitle>Create Collab-Space</CardTitle>
-        <CardDescription>Create a new CollabSpace with Editor in one-click.</CardDescription>
-      </CardHeader> 
-      <CardContent>
-        
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Your Name (Host) ( Visible to Other Members )</Label>
-              <Input id="name" placeholder="Your Name" 
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-            </div>
-            
-          </div>
-        
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button
-            disabled={isSubmitting}
-            type="submit" onClick={handleCreate}>Create Space</Button>
-      </CardFooter>
-            </div>
+        	<div>
+            	<CardHeader>
+         			<CardTitle>Create Collab-Space</CardTitle>
+        			<CardDescription>Create a new CollabSpace with Editor in one-click.</CardDescription>
+       			</CardHeader> 
+
+       			<CardContent>
+          
+           			<div className="grid w-full items-center gap-4">
+           			  <div className="flex flex-col space-y-1.5">
+           			    <Label htmlFor="name">Your Name (Host) ( Visible to Other Members )</Label>
+           			    <Input id="name" placeholder="Your Name" 
+           			      value={userName}
+           			      onChange={(e) => setUserName(e.target.value)}
+           			    />
+           			  </div>
+           			</div>
+          
+       			</CardContent>
+       			<CardFooter className="flex justify-between">
+       			  <Button variant="outline">Cancel</Button>
+       			  <Button
+       			      disabled={isSubmitting}
+       			      type="submit" onClick={handleCreate}>Create Space</Button>
+       			</CardFooter>
+       		</div>
         }
 
         {
@@ -155,6 +155,7 @@ function CreateCollab() {
         }
       
     </Card>
+    </div>
   )
 }
 
