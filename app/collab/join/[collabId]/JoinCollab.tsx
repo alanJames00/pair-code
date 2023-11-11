@@ -47,14 +47,22 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
                 toast({
                     variant: "destructive",
                     title: "Uh oh! Something went wrong.",
-                    description: "There was a problem with your request.",
-                    action: <ToastAction altText="Try again">Try again</ToastAction>,
+                    description: 'This CollabID Does not Exist',
+                    action: <ToastAction altText="Try again">Dismiss</ToastAction>,
                 });
             }
         }
         catch(e) {
 
             console.log(e);
+            // show a error toast
+
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: 'Check your internet connectivity',
+                action: <ToastAction altText="Try again">Dismiss</ToastAction>,
+            });
         }
     }
 
