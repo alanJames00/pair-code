@@ -6,12 +6,17 @@ import SideBar from "./SideBar";
 import { useEffect, useState } from "react";
 import io from 'socket.io-client';
 
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 
 
 export default function Page({ params } : { params: { collabId: string } }) {
 
     const [currentUser, setCurrentUser] = useRecoilState(userState);
     const [socket, setSocket] = useState<any>(null);
+    const [activeUsers, setActiveUsers] = useState<any>([]);
+
+    const { toast } = useToast();
 
     console.log(currentUser);
 
@@ -32,7 +37,17 @@ export default function Page({ params } : { params: { collabId: string } }) {
         // when other users join
         newSocket.on('user-joined', message => {
             console.log(`${message} joined the space`);
+            toast({
+                title: `${message} Joined Collab-Space`,
+                description: `${message} has joined the Collab-Space Now`,
+                action: <ToastAction altText="Try again">Dismiss</ToastAction>,
+            });
+
+            setActiveUsers((prev: any[]) => [...prev, message]);
         })
+
+        // cleanup when unmounted
+
 
     }, []);
 
@@ -44,7 +59,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
             </div>
             <div className=" md:flex">
             <CodeEditor value=""/>
-            <SideBar members={[`${currentUser} (You)`]}/>
+            <SideBar members={[`${currentUser} (You)`,...activeUsers]}/>
             </div>
         </div>
     );
