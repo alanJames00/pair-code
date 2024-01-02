@@ -12,12 +12,16 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useToast } from "@/components/ui/use-toast";
+
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function JoinCollab({ collabId } : { collabId: string }) {
 
     const [collabLink, setCollabLink] = React.useState(collabId);
     const [userName, setUserName] = React.useState('');
+
+    const { toast } = useToast()
 
     async function handleJoin() {
         
@@ -37,7 +41,15 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
             const respJson = await resp.json();
             
             if(resp.ok == false ) {
-                // show toast
+                // show error toast
+                console.log(respJson);
+                
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: "There was a problem with your request.",
+                    action: <ToastAction altText="Try again">Try again</ToastAction>,
+                });
             }
         }
         catch(e) {
