@@ -15,11 +15,17 @@ import { Label } from "@/components/ui/label"
 
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
+import { useRecoilState } from "recoil"
+import { userState } from "@/app/states/userState"
 
 export default function JoinCollab({ collabId } : { collabId: string }) {
 
     const [collabLink, setCollabLink] = React.useState(collabId);
     const [userName, setUserName] = React.useState('');
+
+    const [currentUser, setCurrentUser] = useRecoilState(userState);
+    console.log(currentUser);
+    
 
     const { toast } = useToast()
 
@@ -51,6 +57,10 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
                     action: <ToastAction altText="Try again">Dismiss</ToastAction>,
                 });
             }
+
+            else if(resp.ok == true) {
+                // add the user state to recoil state
+            }
         }
         catch(e) {
 
@@ -69,40 +79,39 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
     return (
         <div className=" flex justify-center mt-40">
 
-    <Card className="w-[400px]">
-        <CardHeader>
-    <CardTitle>Join Collab-Space </CardTitle>
-    <CardDescription>You are invited to join this CollabSpace</CardDescription>
-  </CardHeader> 
-  <CardContent>
+        <Card className="w-[400px]">
+            <CardHeader>
+                <CardTitle>Join Collab-Space </CardTitle>
+                <CardDescription>You are invited to join this CollabSpace</CardDescription>
+            </CardHeader> 
+            
+            <CardContent>
+                <div className="grid w-full items-center gap-4">
+                  <div className="flex flex-col space-y-1.5">
+                    <Label htmlFor="url">Collab-Space Link</Label>
+                    <Input id="url"
+                      type="text"
+                      spellCheck={false}
+                      autoCorrect="off"
+                      value={`http://localhost:3000/collab/space/${collabLink}`}
+                      />
+                      <Label htmlFor="name">Your Name ( Visible to Other Members )</Label>
+                        <Input id="name" placeholder="Your Name" 
+                          value={userName}
+                          onChange={(e) => setUserName(e.target.value)}
+                        />
+                  </div>
+                </div>
     
-      <div className="grid w-full items-center gap-4">
-        <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="url">Collab-Space Link</Label>
-          <Input id="url"
-            type="text"
-            spellCheck={false}
-            autoCorrect="off"
-            value={`http://localhost:3000/collab/space/${collabLink}`}
-            />
-            <Label htmlFor="name">Your Name ( Visible to Other Members )</Label>
-              <Input id="name" placeholder="Your Name" 
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
+                 </CardContent>
+                    <CardFooter className="flex justify-between">
+                    <Button variant="outline">Cancel </Button>
+                    <Button
+                        onClick={handleJoin}
+                        >Join Now &gt;</Button>
+                    </CardFooter>
+            </Card>
         </div>
-        
-      </div>
-    
-  </CardContent>
-  <CardFooter className="flex justify-between">
-    <Button variant="outline">Cancel </Button>
-    <Button
-        onClick={handleJoin}
-    >Join Now &gt;</Button>
-  </CardFooter>
-    </Card>
-    </div>
 
    );
 
