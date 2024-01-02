@@ -13,7 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-
+import { useRecoilState } from "recoil";
+import { userState } from "@/app/states/userState";
+import Link from "next/link";
 
 
 function CreateCollab() {
@@ -23,7 +25,11 @@ function CreateCollab() {
     const [isCreated, setCreated] = React.useState(false);
     const [url, setUrl] = React.useState('');
     const [copyBtn, setCopyBtn] = React.useState('Copy Link');
+	const [collabId, setCollabId] = React.useState('');
 
+	const [currentUser, setCurrentUser] = useRecoilState(userState);
+	console.log(currentUser);
+	
     const { toast } = useToast();
 
     async function handleCreate() {
@@ -56,6 +62,11 @@ function CreateCollab() {
                 
                 if(result.ok == true) {
                     // set the url and show the success card
+					
+					// set the recoil userState
+					setCurrentUser(userName); 
+					
+					setCollabId(respJson.collabId);
                     setUrl(`https://localhost:3000/collab/join/${respJson.collabId}`);
                     setCreated(true);
                 }
@@ -149,7 +160,7 @@ function CreateCollab() {
   </CardContent>
   <CardFooter className="flex justify-between">
     <Button variant="outline">Cancel </Button>
-    <Button>Go To Collab-Space &gt;</Button>
+	<Link href={`/collab/space/${collabId}`}><Button>Go To Collab-Space &gt;</Button></Link>
   </CardFooter>
         </div>
         }

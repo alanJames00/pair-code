@@ -1,13 +1,17 @@
+"use client"
 import { Toaster } from "@/components/ui/toaster"
+import { RecoilRoot } from "recoil"
 
 export default function Layout({ children } : { children : string }) {
 
     return (
-        <div>
+        <RecoilRoot>
             <div>
-                { children }
+                <div>
+                    { children }
+                </div>
+                <Toaster />
             </div>
-            <Toaster />
-        </div>
+        </RecoilRoot>
     );
 }
