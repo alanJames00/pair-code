@@ -24,7 +24,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
     // getActiveUsers();    
     console.log(activeUsers);
     
-    async function getActiveUsers() {
+    async function  getActiveUsers() {
         
         try {
 
@@ -56,14 +56,17 @@ export default function Page({ params } : { params: { collabId: string } }) {
         // connect to server
         const newSocket = io('http://localhost:4001');
         setSocket(newSocket);
-
+        
         // verify user
-
+        
         // join room
         newSocket.emit('join-room', { collabId: params.collabId, user: currentUser});
+        
+        setTimeout(getActiveUsers,3000);
 
         // when other users join
         newSocket.on('user-joined', message => {
+            
             console.log(`${message} joined the space`);
             toast({
                 title: `${message} Joined Collab-Space`,
@@ -72,7 +75,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
             });
 
            // call the api for active Users list
-            getActiveUsers();
+            setTimeout(getActiveUsers,2000);            
 
         })
 
@@ -85,9 +88,30 @@ export default function Page({ params } : { params: { collabId: string } }) {
             setCodeText(message.code);
             
         })
+
+        // when a user leaves
+        newSocket.on('receive-left-room', userLeft => {
+            toast({
+                title: `${userLeft} Left Collab-Space`,
+                description: `${userLeft} has left the Collab-Space now`,
+                action: <ToastAction altText="Try again">Dismiss</ToastAction>,
+            });
+
+            setTimeout(getActiveUsers);
+        });
+
+
         // cleanup when unmounted
 
+        return () => {
+            
+            // send leaving room event
+            newSocket.emit('send-left-room', currentUser);
 
+            newSocket.disconnect();
+
+        }
+        
     }, []);
 
 
