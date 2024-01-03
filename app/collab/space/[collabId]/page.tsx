@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 import { CodeContent } from "@/app/states/codeContent";
+import { codeLang } from "@/app/states/codeLang";
 
 
 export default function Page({ params } : { params: { collabId: string } }) {
@@ -17,6 +18,8 @@ export default function Page({ params } : { params: { collabId: string } }) {
     const [socket, setSocket] = useState<any>(null);
     const [activeUsers, setActiveUsers] = useState<any>([]);
     const [codeText, setCodeText] = useRecoilState(CodeContent);
+
+    const [lang] = useRecoilState(codeLang);
     
     // console.log(codeText);
     
@@ -122,7 +125,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
                 
             </div>
             <div className=" md:flex">
-            <CodeEditor value={codeText} onChange={(e: any) => {
+            <CodeEditor value={codeText} lang={lang} onChange={(e: any) => {
                 // change the localcode state
                 setCodeText(e);
 
