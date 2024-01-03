@@ -10,7 +10,7 @@ export default function SideBar({ members }: { members: any[]}) {
             <h1 className=" text-2xl font-semibold mb-4"> PairCode: CollabSpace</h1>
             <div>
                 <h1 className=" text-lg mb-2">Active Members</h1>
-                <div className=" h-72 mb-52">
+                <div className=" mb-10">
                     {members.map((elem) => 
                         (   
                             <div className=" flex mb-2">

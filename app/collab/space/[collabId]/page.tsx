@@ -119,6 +119,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
         <div>
             <div className=" mt-2 ml-2 mb-4 ">
                 <h1 className=" text-3xl font-bold">PairCode</h1>
+                
             </div>
             <div className=" md:flex">
             <CodeEditor value={codeText} onChange={(e: any) => {
