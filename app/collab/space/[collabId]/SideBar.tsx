@@ -116,7 +116,9 @@ export default function SideBar({ members }: { members: any[]}) {
                 } }>
                     {
                         langArray.map((elem) => (
-                            <DropdownMenuRadioItem value={elem.name}>{elem.name}</DropdownMenuRadioItem>
+                            <DropdownMenuRadioItem 
+                            key={elem.val}
+                            value={elem.name}>{elem.name}</DropdownMenuRadioItem>
                         ))
                     }
                 </DropdownMenuRadioGroup>
@@ -138,7 +140,7 @@ export default function SideBar({ members }: { members: any[]}) {
                 <div className=" mb-10">
                     {members.map((elem) => 
                         (   
-                            <div className=" flex mb-2">
+                            <div key={elem} className=" flex mb-2">
                             <Avatar>
                               <AvatarImage src="https://github.com/shadc0n.png" />
                               <AvatarFallback>{elem[0].toUpperCase()}</AvatarFallback>
