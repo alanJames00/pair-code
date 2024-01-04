@@ -11,3 +11,9 @@ PairCode enables you to code collaboratively in real-time with your team members
 
 ### Multi-Language Support
 Code in your preferred programming language! PairCode supports a wide range of programming languages, ensuring flexibility for all languages.
+
+# How To Set Up Locally
+
+This project consists of two codebases (frontend (this repo) and backend):
+
+Backend Repo: https://github.com/alanJames00/pair-code-backend
