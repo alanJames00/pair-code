@@ -67,7 +67,7 @@ function CreateCollab() {
 					setCurrentUser(userName); 
 					
 					setCollabId(respJson.collabId);
-                    setUrl(`https://localhost:3000/collab/join/${respJson.collabId}`);
+                    setUrl(`https://mypaircode.vercel.app/collab/join/${respJson.collabId}`);
                     setCreated(true);
                 }
                 else {
