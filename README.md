@@ -2,6 +2,8 @@
 
 Welcome to PairCode, your go-to collaborative code editor for seamless coding with your peers! Share code, collaborate in real-time.
 
+Explore PairCode: https://mypaircode.vercel.app/
+
 ## Features
 
 ### Real-time Collaboration
@@ -9,5 +11,3 @@ PairCode enables you to code collaboratively in real-time with your team members
 
 ### Multi-Language Support
 Code in your preferred programming language! PairCode supports a wide range of programming languages, ensuring flexibility for all languages.
-
-
