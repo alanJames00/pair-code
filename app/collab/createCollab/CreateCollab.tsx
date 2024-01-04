@@ -47,7 +47,7 @@ function CreateCollab() {
             
             try {
                 
-                const result = await fetch('http://68.183.245.189:4000/collab/createRoom', {
+                const result = await fetch('https://api-pc.linkzip.co/collab/createRoom', {
                     method:'POST',
                     headers: {
                         'Content-Type':'application/json'

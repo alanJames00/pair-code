@@ -33,7 +33,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
         
         try {
 
-            const resp = await fetch(`http://68.183.245.189:4000/collab/getActiveUsers?id=${params.collabId}`);
+            const resp = await fetch(`https://api-pc.linkzip.co/collab/getActiveUsers?id=${params.collabId}`);
             const respJson = await resp.json();
 
             setActiveUsers(respJson);
