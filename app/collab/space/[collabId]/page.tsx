@@ -19,8 +19,10 @@ export default function Page({ params } : { params: { collabId: string } }) {
     const [activeUsers, setActiveUsers] = useState<any>([]);
     const [codeText, setCodeText] = useRecoilState(CodeContent);
     
+    
     const [lang] = useRecoilState(codeLang);
     
+
     // console.log(codeText);
     
 
@@ -33,7 +35,9 @@ export default function Page({ params } : { params: { collabId: string } }) {
 
             const resp = await fetch(`http://localhost:4000/collab/getActiveUsers?id=${params.collabId}`);
             const respJson = await resp.json();
+
             setActiveUsers(respJson);
+            // construct the array to add you option
         }
         catch(e) {
 
@@ -46,6 +50,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
         console.log(e);
         socket.emit('send-code-change', { code: e, user: currentUser });
     }
+0
 
     const { toast } = useToast();
 
@@ -89,6 +94,9 @@ export default function Page({ params } : { params: { collabId: string } }) {
             console.log(`${message.user} wrote ${message.code}`)
             // check if its written by current user himself
             setCodeText(message.code);
+            
+            // put a star on editing user
+
             
         })
 

@@ -76,7 +76,7 @@ export default function SideBar({ members }: { members: any[]}) {
                 // successful exec
                 setOutput(respJson.run.stdout);
             }
-            else if(respJson.run.code == 1) {
+            else if(respJson.run.code != 0 ) {
                 // error in code exec
                 setOutput(respJson.run.stderr.substring(0,300));
             }
