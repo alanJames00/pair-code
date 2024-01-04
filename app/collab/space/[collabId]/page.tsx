@@ -18,7 +18,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
     const [socket, setSocket] = useState<any>(null);
     const [activeUsers, setActiveUsers] = useState<any>([]);
     const [codeText, setCodeText] = useRecoilState(CodeContent);
-
+    
     const [lang] = useRecoilState(codeLang);
     
     // console.log(codeText);
@@ -125,7 +125,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
                 
             </div>
             <div className=" md:flex">
-            <CodeEditor value={codeText} lang={lang} onChange={(e: any) => {
+            <CodeEditor value={codeText} lang={lang.name} onChange={(e: any) => {
                 // change the localcode state
                 setCodeText(e);
 
