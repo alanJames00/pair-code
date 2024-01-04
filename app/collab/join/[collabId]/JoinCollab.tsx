@@ -116,7 +116,7 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
                       type="text"
                       spellCheck={false}
                       autoCorrect="off"
-                      value={`http://localhost:3000/collab/space/${collabLink}`}
+                      value={`${collabLink}`}
                       />
                       <Label htmlFor="name">Your Name ( Visible to Other Members )</Label>
                         <Input id="name" placeholder="Your Name" 
