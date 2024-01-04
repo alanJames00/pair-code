@@ -33,7 +33,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
         
         try {
 
-            const resp = await fetch(`http://localhost:4000/collab/getActiveUsers?id=${params.collabId}`);
+            const resp = await fetch(`http://68.183.245.189:4000/collab/getActiveUsers?id=${params.collabId}`);
             const respJson = await resp.json();
 
             setActiveUsers(respJson);
@@ -62,7 +62,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
     useEffect(() => {
 
         // connect to server
-        const newSocket = io('http://localhost:4001');
+        const newSocket = io('http://68.183.245.189:4001');
         setSocket(newSocket);
         
         // verify user
