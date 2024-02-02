@@ -62,7 +62,7 @@ export default function Page({ params } : { params: { collabId: string } }) {
     useEffect(() => {
 
         // connect to server
-        const newSocket = io('https://ws-pc.linkzip.co/');
+        const newSocket = io(`${process.env.NEXT_PUBLIC_WS_URI}/`);
         setSocket(newSocket);
         
         // verify user
