@@ -47,7 +47,7 @@ function CreateCollab() {
             
             try {
                 
-                const result = await fetch('https://api-pc.linkzip.co/collab/createRoom', {
+                const result = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/collab/createRoom`, {
                     method:'POST',
                     headers: {
                         'Content-Type':'application/json'

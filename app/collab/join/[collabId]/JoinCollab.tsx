@@ -36,7 +36,7 @@ export default function JoinCollab({ collabId } : { collabId: string }) {
         try {
 
             console.log('trying');
-            const resp = await fetch('https://api-pc.linkzip.co/collab/joinRoom', {
+            const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/collab/joinRoom`, {
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
